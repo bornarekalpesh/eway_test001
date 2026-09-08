@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Sample Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animated Modern Website</title>
 
   <style>
     * {
@@ -13,205 +12,619 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fb;
-      color: #1f2937;
-      line-height: 1.6;
+      background: #0f172a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -2;
+      background:
+        radial-gradient(circle at top left, #312e81, transparent 35%),
+        radial-gradient(circle at bottom right, #0f766e, transparent 35%),
+        #0f172a;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.45;
+      animation: floatBlob 12s ease-in-out infinite alternate;
+    }
+
+    .blob.one {
+      width: 350px;
+      height: 350px;
+      background: #8b5cf6;
+      top: 10%;
+      left: -100px;
+    }
+
+    .blob.two {
+      width: 420px;
+      height: 420px;
+      background: #06b6d4;
+      right: -150px;
+      top: 35%;
+      animation-delay: 2s;
+    }
+
+    .blob.three {
+      width: 300px;
+      height: 300px;
+      background: #ec4899;
+      bottom: -100px;
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatBlob {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(70px, 50px) scale(1.2);
+      }
     }
 
     /* Navbar */
     nav {
-      background: #ffffff;
-      padding: 18px 8%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+      animation: slideDown 0.8s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
-      color: #4f46e5;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGradient 4s linear infinite;
+    }
+
+    @keyframes textGradient {
+      0% {
+        background-position: 0%;
+      }
+
+      100% {
+        background-position: 200%;
+      }
     }
 
     nav ul {
-      display: flex;
       list-style: none;
+      display: flex;
       gap: 30px;
     }
 
     nav a {
+      color: #cbd5e1;
       text-decoration: none;
-      color: #374151;
-      font-weight: 500;
+      font-size: 15px;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -6px;
+      background: #22d3ee;
       transition: 0.3s;
     }
 
     nav a:hover {
-      color: #4f46e5;
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
     }
 
     /* Hero */
     .hero {
-      min-height: 520px;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      color: white;
+      padding: 140px 8% 80px;
     }
 
-    .hero-content {
-      max-width: 750px;
+    .hero-container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .hero-text {
+      animation: fadeLeft 1s ease forwards;
+    }
+
+    @keyframes fadeLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-70px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 9px 16px;
+      margin-bottom: 22px;
+      border-radius: 50px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: #67e8f9;
+      font-size: 14px;
     }
 
     .hero h1 {
-      font-size: 52px;
-      margin-bottom: 20px;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.98;
+      margin-bottom: 25px;
+      letter-spacing: -3px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #22d3ee, #8b5cf6, #f472b6);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGradient 4s linear infinite;
     }
 
     .hero p {
-      font-size: 19px;
-      opacity: 0.9;
-      margin-bottom: 30px;
+      max-width: 650px;
+      color: #94a3b8;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 13px 28px;
-      background: white;
-      color: #4f46e5;
+      padding: 14px 28px;
+      border-radius: 12px;
       text-decoration: none;
-      border-radius: 8px;
       font-weight: bold;
+      transition: all 0.35s ease;
+    }
+
+    .btn-primary {
+      color: #0f172a;
+      background: linear-gradient(90deg, #22d3ee, #a78bfa);
+      box-shadow: 0 10px 35px rgba(34, 211, 238, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 45px rgba(34, 211, 238, 0.35);
+    }
+
+    .btn-secondary {
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      animation: fadeRight 1s ease forwards;
+    }
+
+    @keyframes fadeRight {
+      from {
+        opacity: 0;
+        transform: translateX(70px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .dashboard-card {
+      width: 100%;
+      max-width: 440px;
+      min-height: 470px;
+      padding: 30px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+      animation: floatingCard 4s ease-in-out infinite;
+    }
+
+    @keyframes floatingCard {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .mini-title {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .status {
+      font-size: 12px;
+      color: #6ee7b7;
+      padding: 7px 12px;
+      border-radius: 20px;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .analytics-box {
+      height: 170px;
+      border-radius: 20px;
+      background:
+        linear-gradient(
+          to top,
+          rgba(34, 211, 238, 0.18),
+          rgba(139, 92, 246, 0.04)
+        );
+      display: flex;
+      align-items: end;
+      justify-content: space-evenly;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 35px;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(to top, #22d3ee, #8b5cf6);
+      animation: growBar 1.4s ease forwards;
+      transform-origin: bottom;
+    }
+
+    .bar:nth-child(1) {
+      height: 45%;
+    }
+
+    .bar:nth-child(2) {
+      height: 75%;
+      animation-delay: 0.2s;
+    }
+
+    .bar:nth-child(3) {
+      height: 58%;
+      animation-delay: 0.4s;
+    }
+
+    .bar:nth-child(4) {
+      height: 90%;
+      animation-delay: 0.6s;
+    }
+
+    .bar:nth-child(5) {
+      height: 70%;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes growBar {
+      from {
+        transform: scaleY(0);
+      }
+
+      to {
+        transform: scaleY(1);
+      }
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .stat-box {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       transition: 0.3s;
     }
 
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    .stat-box:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    /* Main Section */
-    .container {
-      width: 85%;
+    .stat-box h3 {
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .stat-box p {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    /* Features */
+    .section {
+      padding: 100px 8%;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 55px;
+    }
+
+    .section-header h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .section-header p {
+      color: #94a3b8;
+      line-height: 1.7;
+    }
+
+    .features-grid {
       max-width: 1200px;
       margin: auto;
-      padding: 80px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .section-title h2 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .section-title p {
-      color: #6b7280;
-    }
-
-    /* Cards */
-    .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 24px;
     }
 
-    .card {
-      background: white;
-      padding: 35px 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
-      transition: 0.3s;
+    .feature-card {
+      position: relative;
+      padding: 32px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transition: 0.4s ease;
+      animation: fadeUp 1s ease both;
     }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    .feature-card:nth-child(2) {
+      animation-delay: 0.15s;
     }
 
-    .icon {
-      width: 55px;
-      height: 55px;
-      background: #eef2ff;
-      color: #4f46e5;
-      border-radius: 12px;
+    .feature-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -50px;
+      top: -50px;
+      border-radius: 50%;
+      background: rgba(34, 211, 238, 0.12);
+      transition: 0.4s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px);
+      border-color: rgba(34, 211, 238, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .feature-card:hover::before {
+      transform: scale(1.8);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 25px;
-      margin-bottom: 20px;
+      font-size: 26px;
+      margin-bottom: 22px;
+      background: linear-gradient(
+        135deg,
+        rgba(34, 211, 238, 0.2),
+        rgba(139, 92, 246, 0.2)
+      );
     }
 
-    .card h3 {
+    .feature-card h3 {
       margin-bottom: 12px;
-      font-size: 21px;
+      font-size: 22px;
     }
 
-    .card p {
-      color: #6b7280;
+    .feature-card p {
+      color: #94a3b8;
+      line-height: 1.7;
       font-size: 15px;
     }
 
     /* CTA */
     .cta {
-      margin-top: 80px;
-      background: #111827;
-      color: white;
-      border-radius: 20px;
-      padding: 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 30px;
+      max-width: 1200px;
+      margin: 50px auto 100px;
+      padding: 55px;
+      border-radius: 30px;
+      text-align: center;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(34, 211, 238, 0.16),
+          rgba(139, 92, 246, 0.16),
+          rgba(244, 114, 182, 0.12)
+        );
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
     }
 
     .cta h2 {
-      font-size: 30px;
-      margin-bottom: 8px;
+      font-size: 40px;
+      margin-bottom: 15px;
     }
 
     .cta p {
-      color: #d1d5db;
+      max-width: 650px;
+      margin: auto;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 30px;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 30px;
-      background: white;
-      color: #6b7280;
-      border-top: 1px solid #e5e7eb;
+      color: #64748b;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     /* Responsive */
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       nav ul {
         display: none;
       }
 
-      .hero h1 {
-        font-size: 38px;
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
-      .cards {
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .button-group {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        margin-top: 30px;
+      }
+
+      .features-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 18px 5%;
+      }
+
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        letter-spacing: -2px;
+      }
+
+      .section {
+        padding: 70px 5%;
+      }
+
+      .dashboard-card {
+        padding: 20px;
       }
 
       .cta {
-        flex-direction: column;
-        text-align: center;
+        margin: 30px 5% 70px;
+        padding: 35px 20px;
+      }
+
+      .cta h2 {
+        font-size: 30px;
       }
     }
   </style>
@@ -219,82 +632,182 @@
 
 <body>
 
+  <div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+  </div>
+
   <nav>
-    <div class="logo">MyWebsite</div>
+    <div class="logo">NovaUI</div>
 
     <ul>
-      <li><a href="#">Home</a></li>
+      <li><a href="#home">Home</a></li>
       <li><a href="#features">Features</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Build Something Amazing</h1>
+  <section class="hero" id="home">
+    <div class="hero-container">
 
-      <p>
-        A simple, clean and responsive HTML template created using
-        only HTML and CSS.
-      </p>
+      <div class="hero-text">
 
-      <a href="#features" class="btn">Get Started</a>
+        <div class="hero-badge">
+          ✨ Modern Animated Experience
+        </div>
+
+        <h1>
+          Build the
+          <span>Future</span>
+          of the Web.
+        </h1>
+
+        <p>
+          A modern landing page created with pure HTML and CSS.
+          It includes smooth animations, glassmorphism,
+          responsive layouts, glowing backgrounds and interactive cards.
+        </p>
+
+        <div class="button-group">
+          <a href="#features" class="btn btn-primary">
+            Explore Features
+          </a>
+
+          <a href="#about" class="btn btn-secondary">
+            Learn More
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="dashboard-card">
+
+          <div class="dashboard-top">
+            <div>
+              <div class="mini-title">
+                Analytics Dashboard
+              </div>
+              <h2>Overview</h2>
+            </div>
+
+            <span class="status">
+              ● Live
+            </span>
+          </div>
+
+          <div class="analytics-box">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+
+          <div class="stats">
+
+            <div class="stat-box">
+              <h3>12.8K</h3>
+              <p>Active Users</p>
+            </div>
+
+            <div class="stat-box">
+              <h3>84%</h3>
+              <p>Engagement</p>
+            </div>
+
+            <div class="stat-box">
+              <h3>4.8</h3>
+              <p>User Rating</p>
+            </div>
+
+            <div class="stat-box">
+              <h3>+32%</h3>
+              <p>Growth</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   </section>
 
-  <main class="container" id="features">
+  <section class="section" id="features">
 
-    <div class="section-title">
-      <h2>Our Features</h2>
-      <p>Everything you need to create a great application.</p>
+    <div class="section-header">
+      <h2>Designed to Feel Premium</h2>
+      <p>
+        Clean UI, smooth transitions and responsive components
+        designed to make the website feel modern and professional.
+      </p>
     </div>
 
-    <div class="cards">
+    <div class="features-grid">
 
-      <div class="card">
-        <div class="icon">⚡</div>
-        <h3>Fast</h3>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+
+        <h3>Fast Experience</h3>
+
         <p>
-          Lightweight and optimized design that provides a smooth
-          experience for your users.
+          Lightweight CSS animations and responsive layouts
+          keep the user experience smooth and engaging.
         </p>
       </div>
 
-      <div class="card">
-        <div class="icon">🎨</div>
-        <h3>Beautiful Design</h3>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+
+        <h3>Modern Design</h3>
+
         <p>
-          Modern layouts, clean typography and subtle animations
-          create an attractive user interface.
+          Glass effects, gradients, glowing elements and clean
+          typography create a premium visual experience.
         </p>
       </div>
 
-      <div class="card">
-        <div class="icon">📱</div>
-        <h3>Responsive</h3>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+
+        <h3>Fully Responsive</h3>
+
         <p>
-          The layout automatically adapts to desktop, tablet and
-          mobile screen sizes.
+          The website automatically adapts to desktop,
+          tablet and mobile devices using CSS Grid and media queries.
         </p>
       </div>
 
     </div>
 
-    <section class="cta">
-      <div>
-        <h2>Ready to get started?</h2>
-        <p>Create your next amazing web application today.</p>
-      </div>
+  </section>
 
-      <a href="#" class="btn">Start Now</a>
-    </section>
+  <section class="cta" id="about">
 
-  </main>
+    <h2>Create Something Beautiful</h2>
 
-  <footer>
-    © 2026 MyWebsite. All rights reserved.
+    <p>
+      You can use this template for SaaS websites,
+      developer portfolios, startup landing pages,
+      product websites and dashboard applications.
+    </p>
+
+    <a href="#home" class="btn btn-primary">
+      Get Started
+    </a>
+
+  </section>
+
+  <footer id="contact">
+    © 2026 NovaUI. Built with HTML & CSS.
   </footer>
 
 </body>
 </html>
+```
+ 
